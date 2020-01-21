@@ -1,11 +1,24 @@
-type Post {
+type Project {
+  id: ID! @id
+  name: String!
+}
+
+type Tag {
+  id: ID! @id
+  name: String!
+}
+
+type Task {
   id: ID! @id
   createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  published: Boolean! @default(value: false)
-  title: String!
-  content: String!
-  author: User!
+  modifiedAt: DateTime! @modifiedAt
+  text: String!
+  asignee: String!
+  creator: String!
+  priority: Number!
+  dueDate: DateTime!
+  tags: [Tag!]!
+  project: Project!
 }
 
 type User {
