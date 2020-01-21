@@ -1,7 +1,10 @@
 {
   "name": "gtd-tool",
+  "author": "Alex Lapinski <contact@alexlapinski.name>",
+  "license": "MIT",
   "private": true,
   "devDependencies": {
+    "graphql-cli": "^3.0.14",
     "lerna": "^3.20.2"
   }
 }
