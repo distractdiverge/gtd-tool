@@ -15,7 +15,7 @@ type Task {
   text: String!
   asignee: String!
   creator: String!
-  priority: Number!
+  priority: Int!
   dueDate: DateTime!
   tags: [Tag!]!
   project: Project!
@@ -26,5 +26,4 @@ type User {
   email: String! @unique
   password: String!
   name: String!
-  posts: [Post!]!
 }
