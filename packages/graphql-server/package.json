@@ -4,7 +4,8 @@
   "description": "GraphQL Server for gtd-tool",
   "scripts": {
     "prestart": "npm run build",
-    "start": "node src/index.ts",
+    "start": "node ./dist/index.js",
+    "dev": "ts-node ./src/index.ts",
     "build": "tsc"
   },
   "repository": {
@@ -19,6 +20,7 @@
     "graphql": "^14.5.8"
   },
   "devDependencies": {
+    "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   }
 }
