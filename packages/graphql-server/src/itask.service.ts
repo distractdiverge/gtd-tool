@@ -1,17 +1,5 @@
-export enum Priority {
-    High = 0,
-    Medium = 1,
-    Low = 2,
-};
-
-export type Task = {
-    id: string;
-    text: string;
-    priority: Priority;
-    description?: string;
-    project?: string;
-    tags?: [];
-};
+import { Task } from "./models/task";
+import { Priority } from "./models/priority";
 
 export interface TaskService {
     getAll(): Task[];

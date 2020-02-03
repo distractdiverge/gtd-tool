@@ -1,40 +1,38 @@
-import { Task, Priority, TaskService } from './itask.service';
+import uuid from 'uuid/v4';
+import * as R from 'ramda';
+import { TaskService } from './itask.service';
+import { Task } from './models/task';
+import { Priority } from './models/priority';
 
 export default class MockTaskService implements TaskService {
 
-    private tasks: Task[] = [];
+    private tasks: { [id: string]: Task };
 
-    constructor(initialTasks: Task[]) {
-        this.tasks = initialTasks;
+    constructor() {
+        this.tasks = {};
     }
 
     getAll(): Task[] {
-        console.log(`getting tasks: ${this.tasks.length}`);
-        return this.tasks;
+        const getSize = R.pipe(R.keys, R.length);
+        console.log(`getting tasks: ${getSize(this.tasks)}`);
+        return R.values(this.tasks);
     }
     
     find(id: string): Task | undefined {
-        
-        for (let index = 0; index < this.tasks.length; index++) {
-            const element = this.tasks[index];
-            if (element.id === id) {
-                return element
-
-            }
-        }
-        
-        return undefined;
+        return this.tasks[id];
     }
     
     create(text: string, priority: Priority): Task {
         console.log('creating task');
-        const aTask: Task = {
-            id: `${this.tasks.length}`,
+        
+        const id = uuid();
+        const aTask = {
+            id,
             text,
             priority,
-        }
+        };
 
-        this.tasks.push(aTask);
+        this.tasks[id] = aTask;
 
         return aTask;
     }
