@@ -23,14 +23,13 @@ export default class MockTaskService implements TaskService {
     }
     
     create(text: string, priority: Priority): Task {
-        console.log('creating task');
-        
         const id = uuid();
         const aTask = {
             id,
             text,
             priority,
         };
+        console.log(`creating task: ${JSON.stringify(aTask, null, 2)}`);
 
         this.tasks[id] = aTask;
 

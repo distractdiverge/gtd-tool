@@ -16,7 +16,9 @@ export default {
         tasks: () => aTaskService.getAll(),
     },
     Mutation: {
-        createTask: (text: string, priority: Priority): Task =>
-            aTaskService.create(text, priority)
+        createTask: (param1: any, args: any): Task => {
+            console.log(`Param: ${param1}`);
+            return aTaskService.create(args.text, args.priority);
+        }
     }
 };
