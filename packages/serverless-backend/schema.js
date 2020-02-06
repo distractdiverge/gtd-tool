@@ -1,8 +1,9 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 const schema = fs.readFileSync(
-    path.join(__dirname, 'schema.gql')
+    path.join(__dirname, 'schema.gql'),
+    'utf8',
 );
 
-export { schema };
+module.exports = { schema };

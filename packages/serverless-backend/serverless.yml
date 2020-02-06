@@ -1,8 +1,32 @@
 service: serverless-backend
 
+frameworkVersion: ">=1.21.0 <2.0.0"
+
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+custom:
+  serverless-offline:
+    port: 4000
+  dynamodb:
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+      seed: true
+    seed:
+      test:
+        sources:
+          - table: Users
+            sources: [seed-data/Users.json]
+          - table: Tweets
+            sources: [seed-data/Tweets.json]
 
 functions:
   graphql:
@@ -12,3 +36,20 @@ functions:
           path: graphql
           method: post
           cors: true
+
+resources:
+  UserTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      KeySchema:
+        -
+          AttributeName: handle
+          KeyType: HASH
+      AttributeDefinitions:
+        - 
+          AttributeName: handle
+          AttributeType: S
+      ProvisionedThroughput:
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
+      TableName: 'Users'
