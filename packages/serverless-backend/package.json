@@ -1,0 +1,20 @@
+{
+  "name": "serverless-backend",
+  "version": "1.0.0",
+  "author": "Alex Lapinski <contact@alexlapinski.name>",
+  "description": "GraphQL Backend implemented using lambdas",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alexlapinski/gtd-tool.git",
+    "directory": "packages/serverless-backend"
+  },
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server-lambda": "^2.9.16",
+    "graphql-tools": "^4.0.6"
+  }
+}
