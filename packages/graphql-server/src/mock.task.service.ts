@@ -2,7 +2,7 @@ import uuid from 'uuid/v4';
 import * as R from 'ramda';
 import { TaskService } from './itask.service';
 import { Task } from './models/task';
-import { Priority } from './models/priority';
+import Priority from './models/priority';
 
 export default class MockTaskService implements TaskService {
   private tasks: { [id: string]: Task };
@@ -12,8 +12,6 @@ export default class MockTaskService implements TaskService {
   }
 
   getAll(): Task[] {
-    const getSize = R.pipe(R.keys, R.length);
-    console.log(`getting tasks: ${getSize(this.tasks)}`);
     return R.values(this.tasks);
   }
 
@@ -28,7 +26,6 @@ export default class MockTaskService implements TaskService {
       text,
       priority,
     };
-    console.log(`creating task: ${JSON.stringify(aTask, null, 2)}`);
 
     this.tasks[id] = aTask;
 

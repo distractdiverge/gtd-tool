@@ -1,5 +1,5 @@
 import MockTaskService from './mock.task.service';
-import { Priority } from './models/priority';
+import Priority from './models/priority';
 import { Task } from './models/task';
 
 const aTaskService = new MockTaskService();
@@ -13,12 +13,9 @@ export default {
     Low: Priority.Low,
   },
   Query: {
-    tasks: () => aTaskService.getAll(),
+    tasks: (): Task[] => aTaskService.getAll(),
   },
   Mutation: {
-    createTask: (param1: any, args: any): Task => {
-      console.log(`Param: ${param1}`);
-      return aTaskService.create(args.text, args.priority);
-    },
+    createTask: (param1, args): Task => aTaskService.create(args.text, args.priority),
   },
 };
