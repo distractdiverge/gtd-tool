@@ -1,4 +1,7 @@
-# `gtd-ios`
+# GTD - iOS Client
+
+## Required Tools
+ * ExpoCLI -- ```npm install -g expo-cli```
 
 > TODO: description
 
