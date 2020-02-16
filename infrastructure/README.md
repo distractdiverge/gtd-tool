@@ -12,3 +12,15 @@ A set of terraform / serverless configuration to setup the required infrastructu
 
 ## iOS - React Native
  * React Native + Typescript
+
+## Tracking
+ * Google Analytics?
+
+## Metrics
+* DataDog -- OpenTracing or some standard
+
+## Logging
+ * ? What standards exist?
+
+## Configuration
+ * ? No Idea
