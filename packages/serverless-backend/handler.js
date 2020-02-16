@@ -9,7 +9,6 @@ const myGraphQLSchema = makeExecutableSchema({
 });
 
 const graphqlHandler = async (event, context, callback) => {
-  
   // Intercept the callback and add a Header
   const callbackWithHeaders = (error, output) => {
     output.headers['Access-Control-Allow-Origin'] = '*';

@@ -5,34 +5,33 @@ import { Task } from './models/task';
 import { Priority } from './models/priority';
 
 export default class MockTaskService implements TaskService {
+  private tasks: { [id: string]: Task };
 
-    private tasks: { [id: string]: Task };
+  constructor() {
+    this.tasks = {};
+  }
 
-    constructor() {
-        this.tasks = {};
-    }
+  getAll(): Task[] {
+    const getSize = R.pipe(R.keys, R.length);
+    console.log(`getting tasks: ${getSize(this.tasks)}`);
+    return R.values(this.tasks);
+  }
 
-    getAll(): Task[] {
-        const getSize = R.pipe(R.keys, R.length);
-        console.log(`getting tasks: ${getSize(this.tasks)}`);
-        return R.values(this.tasks);
-    }
-    
-    find(id: string): Task | undefined {
-        return this.tasks[id];
-    }
-    
-    create(text: string, priority: Priority): Task {
-        const id = uuid();
-        const aTask = {
-            id,
-            text,
-            priority,
-        };
-        console.log(`creating task: ${JSON.stringify(aTask, null, 2)}`);
+  find(id: string): Task | undefined {
+    return this.tasks[id];
+  }
 
-        this.tasks[id] = aTask;
+  create(text: string, priority: Priority): Task {
+    const id = uuid();
+    const aTask = {
+      id,
+      text,
+      priority,
+    };
+    console.log(`creating task: ${JSON.stringify(aTask, null, 2)}`);
 
-        return aTask;
-    }
-};
+    this.tasks[id] = aTask;
+
+    return aTask;
+  }
+}
