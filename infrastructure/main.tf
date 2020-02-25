@@ -6,8 +6,8 @@ terraform {
         # If you re-run the bootstrap, you'll need a new Role ARN
         role_arn        = "arn:aws:iam::117243655954:role/terraform-state-TerraformRole-Y05T5PDO4EKQ"
         key             = "gtd-application.tfstate"
-        dynamodb_table  = "Generic_Terraform_StateLock"
-        bucket          = "dev-ppwc.marketplace-data.tfstate"
+        dynamodb_table  = "TerraformStateLock"
+        bucket          = "terraformstate.02252020"
     }
 }
 
