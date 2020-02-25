@@ -1,0 +1,77 @@
+---
+    AWSTemplateFormatVersion: 2010-09-09
+    Description: Creates the required resources to use as the state backend for Terraform
+    Parameters:
+        AccountId:
+            Type: Number
+            Description: The AWS Account Number
+    
+    Resources:
+        TerraformLocks:
+            Type: AWS::DynamoDB::Table
+            Properties:
+                TableName: dev-ppwc.marketplace-data.tflock
+                AttributeDefinitions:
+                    - 
+                        AttributeName: "LockID"
+                        AttributeType: "S"
+                KeySchema:
+                    -
+                        AttributeName: "LockID"
+                        KeyType: "HASH"
+                ProvisionedThroughput:
+                    ReadCapacityUnits: 5
+                    WriteCapacityUnits: 5
+        TerraformState:
+            Type: AWS::S3::Bucket
+            Properties:
+                BucketName: dev-ppwc.marketplace-data.tfstate
+        TerraformRole:
+            Type: AWS::IAM::Role
+            Properties:
+                AssumeRolePolicyDocument:
+                    Statement:
+                        - Effect: Allow
+                          Principal: 
+                            AWS: !Sub arn:aws:iam::${AccountId}:root
+                          Action:
+                            - sts:AssumeRole
+        TerraformPolicy:
+            Type: AWS::IAM::Policy
+            Properties:
+                PolicyName: TerraformStatePolicy
+                PolicyDocument:
+                    Version: "2012-10-17"
+                    Statement:
+                        - Effect: Allow
+                          Resource: !GetAtt [TerraformState, Arn]
+                          Action:
+                            - s3:ListBucket
+                        - Effect: Allow
+                          Resource: !Join ["", [!GetAtt [TerraformState, Arn], "/*"]]
+                          Action:
+                            - s3:GetObject
+                            - s3:PutObject
+                        - Effect: Allow
+                          Resource: !GetAtt [TerraformLocks, Arn]
+                          Action:
+                            - dynamodb:GetItem
+                            - dynamodb:PutItem
+                            - dynamodb:DeleteItem
+                Roles: [!Ref TerraformRole]
+    
+    
+    Outputs:
+        RoleId:
+            Description: The logical ID of the IAM Role
+            Value: !Ref TerraformRole
+        RoleArn:
+            Description: The ARN of the IAM Role
+            Value: !GetAtt [TerraformRole, Arn]
+        StateBucketName:
+            Description: The S3 Bucket Name for storing Terraform State
+            Value: !Ref TerraformState
+        LockDynamoDbTable:
+            Description: The DynamoDB Tablename for storing Terraform Locks
+            Value: !Ref TerraformLocks
+    
