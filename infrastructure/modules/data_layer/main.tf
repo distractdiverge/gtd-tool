@@ -9,3 +9,5 @@ resource "aws_appsync_graphql_api" "graphql_api" {
         {},
     )
 }
+
+## TODO: Add Backend DynamoDB to store each item
